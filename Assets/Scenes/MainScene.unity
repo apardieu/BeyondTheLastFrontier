@@ -131,6 +131,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1890058567644141714, guid: 470e19a8fc93a2141bbd03434145fdbb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -145,43 +150,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.034659527
+      value: -0.06461003
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9578323
+      value: -0.9112251
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.18949084
+      value: 0.18147619
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.21318845
+      value: 0.36408913
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -200.379
+      value: -196.48
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -170.966
+      value: -164.894
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 26.722992
+      value: 45.758987
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.61
+      value: 0.15184063
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.04
+      value: 0.003139615
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.67
+      value: -0.6098639
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -297,11 +302,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1890058567644141714, guid: 470e19a8fc93a2141bbd03434145fdbb,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
 --- !u!1 &1013500581
@@ -330,9 +330,9 @@ Light:
   m_GameObject: {fileID: 1013500581}
   m_Enabled: 1
   serializedVersion: 9
-  m_Type: 3
+  m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 10
+  m_Intensity: 1
   m_Range: 0.06270391
   m_SpotAngle: 179
   m_InnerSpotAngle: 4
@@ -371,7 +371,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -389,7 +389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013500581}
   m_LocalRotation: {x: 0.41392282, y: 0, z: 0, w: 0.910312}
-  m_LocalPosition: {x: -3.24, y: 1.01, z: 20}
+  m_LocalPosition: {x: -1.78, y: 1.01, z: -2.19}
   m_LocalScale: {x: 1.9815, y: 1, z: 1.8626}
   m_Children: []
   m_Father: {fileID: 0}
@@ -446,7 +446,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 63
   orthographic: 1
   orthographic size: 5
   m_Depth: -1
@@ -554,7 +554,7 @@ TilemapRenderer:
   m_MaxFrameAge: 16
   m_SortOrder: 3
   m_Mode: 1
-  m_DetectChunkCullingBounds: 0
+  m_DetectChunkCullingBounds: 1
   m_MaskInteraction: 0
 --- !u!1839735485 &1674228549
 Tilemap:
@@ -2997,4 +2997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa36453671344424099e60546312d811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementspeed: 1
+  movementspeed: 2
+  rotationspeed: 1000
+  ratio: 2
+  ratio2: 0.5
