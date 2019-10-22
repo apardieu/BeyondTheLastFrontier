@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.6098639
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 470e19a8fc93a2141bbd03434145fdbb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -446,7 +450,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 63
+  field of view: 26.991467
   orthographic: 1
   orthographic size: 5
   m_Depth: -1
@@ -476,7 +480,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1674228546
 GameObject:
