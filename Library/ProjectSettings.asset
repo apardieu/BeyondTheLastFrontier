@@ -593,6 +593,10 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 1
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -613,10 +617,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: ce8271a3-08b1-4d39-9503-5367c84d35ae
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Beyond The Last Frontier 2D
+  organizationId: unity_4nbyk6i236h1iw
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
