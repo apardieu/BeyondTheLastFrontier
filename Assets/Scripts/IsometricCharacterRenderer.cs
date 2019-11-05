@@ -9,6 +9,8 @@ public class IsometricCharacterRenderer : MonoBehaviour
     public static readonly string[] staticDirections = { "Static N", "Static NW", "Static W", "Static SW", "Static S", "Static SE", "Static E", "Static NE" };
     public static readonly string[] runDirections = {"Run N", "Run NW", "Run W", "Run SW", "Run S", "Run SE", "Run E", "Run NE"};
 
+
+    bool isColliding;
     Animator animator;
     int lastDirection;
 
@@ -42,8 +44,8 @@ public class IsometricCharacterRenderer : MonoBehaviour
         }
 
         //tell the animator to play the requested state
-        Debug.Log("Last Direction " + lastDirection + " nom direction "+directionArray[lastDirection]);
-        animator.Play(directionArray[lastDirection]);
+        if(!isColliding)
+            animator.Play(directionArray[lastDirection]);
     }
 
     //helper functions
@@ -70,7 +72,7 @@ public class IsometricCharacterRenderer : MonoBehaviour
         //calculate the amount of steps required to reach this angle
         float stepCount = angle / step;
         //round it, and we have the answer!
-        Debug.Log("Direction " + stepCount);
+
 
         return Mathf.FloorToInt(stepCount);
     }
@@ -94,6 +96,11 @@ public class IsometricCharacterRenderer : MonoBehaviour
         }
         //we're done!
         return hashArray;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("COLLISION");
     }
 
 }

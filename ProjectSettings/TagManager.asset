@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - camera
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - Jacob
   - 
   - 
+  - Collectables
   - 
-  - 
-  - 
+  - Ground
   - 
   - 
   - 
@@ -43,6 +44,9 @@ TagManager:
     locked: 0
   - name: Sol
     uniqueID: 2542786421
+    locked: 0
+  - name: Objects
+    uniqueID: 1362785363
     locked: 0
   - name: HUD
     uniqueID: 3352354491
