@@ -10,6 +10,7 @@ public class Ressource
   public string name;
   public int quantite;
   public Dictionary<Ressource, int> requirements = new Dictionary<Ressource, int>();
+  public float prix;
   public int type = -1; //0 pour non-craftable, 1 pour craftable
   public bool etat = false; //false pour pas assez de ressources pour crafter, vrai pour l'inverse
   public bool jamaisCrafte = true;
@@ -18,12 +19,13 @@ public class Ressource
   public Button buttonCraft;
 
 
-  public Ressource(string name, int quantite, int type, Dictionary<Ressource, int> req)
+  public Ressource(string name, int quantite, int type, Dictionary<Ressource, int> req, float price)
   {
     this.name = name;
     this.quantite = quantite;
     this.requirements = req;
     this.type = type;
+    this.prix = price;
 
   }
 
