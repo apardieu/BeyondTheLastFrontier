@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - camera
+  - Lakes
+  - Grid
+  - tilemap
   layers:
   - Default
   - TransparentFX
@@ -47,6 +50,9 @@ TagManager:
     locked: 0
   - name: Objects
     uniqueID: 1362785363
+    locked: 0
+  - name: Weather
+    uniqueID: 1346392635
     locked: 0
   - name: HUD
     uniqueID: 3352354491

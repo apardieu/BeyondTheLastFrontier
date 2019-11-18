@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4606873233318103394}
   - component: {fileID: 6524142245498723921}
   - component: {fileID: 2949007571033726431}
+  - component: {fileID: 4429786309303893206}
+  - component: {fileID: 5533006475254614009}
   m_Layer: 0
   m_Name: Dead Tree 3
   m_TagString: Untagged
@@ -94,7 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ea847dcd71e9a43b3db76957ebbef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 1105033146311181555, guid: 875b2d0e3e9da704488daf9ef6601d05, type: 3}
+  pointsDeVieMax: 5
+  ressource: Bois
+  collectable: 1
+  health: {fileID: 4586143977114095861, guid: a3ec52e2f05e1f341bf5e0e09efd8e03, type: 3}
 --- !u!60 &2949007571033726431
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -226,3 +231,114 @@ PolygonCollider2D:
       - {x: 0.099999994, y: 0.17}
       - {x: 0.17, y: 0.11}
       - {x: 0.17, y: 0.13}
+--- !u!114 &4429786309303893206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2686952101477317153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c89f95cbb6b3964980ffc08be16f6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: af2efa7792973364aae8e038c79e4011, type: 3}
+  - {fileID: 8300000, guid: fed49d3ab4e7c3149b984441fe1305e1, type: 3}
+--- !u!82 &5533006475254614009
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2686952101477317153}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
