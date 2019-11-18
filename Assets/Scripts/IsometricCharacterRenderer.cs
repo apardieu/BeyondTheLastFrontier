@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 
 public class IsometricCharacterRenderer : MonoBehaviour
@@ -9,21 +8,16 @@ public class IsometricCharacterRenderer : MonoBehaviour
 
     public static readonly string[] staticDirections = { "Static N", "Static NW", "Static W", "Static SW", "Static S", "Static SE", "Static E", "Static NE" };
     public static readonly string[] runDirections = {"Run N", "Run NW", "Run W", "Run SW", "Run S", "Run SE", "Run E", "Run NE"};
-    public static readonly string[] chopDirections = { "Chop N", "Chop NW", "Chop W", "Chop SW", "Chop S", "Chop SE", "Chop E", "Chop NE" };
 
 
+    bool isColliding;
     Animator animator;
-    audioPlayer audioPlayer;
     int lastDirection;
-
-
 
     private void Awake()
     {
         //cache the animator component
-
         animator = GetComponent<Animator>();
-        audioPlayer = GetComponent<audioPlayer>();
     }
 
 
@@ -35,18 +29,9 @@ public class IsometricCharacterRenderer : MonoBehaviour
         //measure the magnitude of the input.
         if (direction.magnitude < .01f)
         {
-            if (GameManager.isCollecting)
-            {
-                directionArray = chopDirections;
-
-            }
-
-            else
-            {
-                directionArray = staticDirections;
-                audioPlayer.stopSound();
-            }
-                
+            //if we are basically standing still, we'll use the Static states
+            //we won't be able to calculate a direction if the user isn't pressing one, anyway!
+            directionArray = staticDirections;
         }
         else
         {
@@ -54,17 +39,12 @@ public class IsometricCharacterRenderer : MonoBehaviour
             //use DirectionToIndex to get the index of the slice from the direction vector
             //save the answer to lastDirection
             directionArray = runDirections;
-
-            audioPlayer.playSound(0, false,0.2f);
             lastDirection = DirectionToIndex(direction, 8);
 
         }
 
         //tell the animator to play the requested state
-
-
-       // Debug.Log("Tilemap Size" + tilemap.size);
-
+        if(!isColliding)
             animator.Play(directionArray[lastDirection]);
     }
 
@@ -94,8 +74,6 @@ public class IsometricCharacterRenderer : MonoBehaviour
         //round it, and we have the answer!
 
 
-
-
         return Mathf.FloorToInt(stepCount);
     }
 
@@ -120,11 +98,9 @@ public class IsometricCharacterRenderer : MonoBehaviour
         return hashArray;
     }
 
-
-
-    public int getDirection()
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        return lastDirection;
+        Debug.Log("COLLISION");
     }
 
 }

@@ -9,7 +9,6 @@ public class Inventaire : MonoBehaviour
   public GameObject boutonAddBag;
   public GameObject boutonDeleteBag;
   public GameObject boutonCraft;
-  public GameObject jacob;
 
   /*public List<Ressource> GameManager.items = new List<Ressource>();
 
@@ -35,7 +34,6 @@ public class Inventaire : MonoBehaviour
       ReprintBag();
     CheckIfObjectIsCraftable();
     CheckIfObjectAddableToBag();
-    Map();
   }
 
   void InitBag()
@@ -49,13 +47,9 @@ public class Inventaire : MonoBehaviour
     
   }
 
+  
 
-  void Map()
-  {
-    jacob.transform.localPosition = GameManager.posJacobMap;
-    Debug.Log(jacob.transform.localPosition);
-    Debug.Log(jacob.transform.position);
-  }
+
 
   void CheckIfObjectIsCraftable()
   {
@@ -78,9 +72,30 @@ public class Inventaire : MonoBehaviour
     }
   }
 
-  public void CheckIfObjectAddableToBag()
+  void CheckIfObjectAddableToBag()
   {
-      
+    /*bool tmp = false;
+    if(tabBag.Count >= 8)
+    {
+      DisableClickAddBag();
+    }
+    
+    else
+    {
+      foreach (Ressource r in tabBag)
+      {
+        if (r.name == gameObjectActuel.name)
+        {
+          DisableClickAddBag();
+          tmp = true;
+        }
+      }
+      if (tmp == false)
+        EnableClickAddBag();
+    }*/
+
+
+    
     if (GameManager.tabBag.Count >= 8)
     {
       foreach (Ressource r in GameManager.items)
@@ -103,9 +118,7 @@ public class Inventaire : MonoBehaviour
           {
             r.EnableButtonCase();
           }
-          else
-            r.DisableButtonCase();
-
+          
         }
           
       }
@@ -133,12 +146,8 @@ public class Inventaire : MonoBehaviour
 
   public void ClickDeleteBag(GameObject bouton)
   {
-    if(bouton.GetComponent<Image>().sprite != null)
-    {
-      boutonDeleteBag.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
-      gameObjectActuel = bouton;
-    }
-    
+    boutonDeleteBag.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
+    gameObjectActuel = bouton;
   }
 
   public void ClickCraft(GameObject bouton)
@@ -178,7 +187,7 @@ public class Inventaire : MonoBehaviour
   public void Craft()
   {
     state = 0;
-    bool feu = false;
+
     boutonCraft.transform.position += new Vector3(0, 0, -10);
 
     foreach (Ressource r in GameManager.items)
@@ -205,14 +214,10 @@ public class Inventaire : MonoBehaviour
         r.quantite = r.quantite + 1;
         r.UpdateQuantite();
         RearrangeBag();
-        if (r.name == "Feu")
-          feu = true;
       }
     }
 
     CheckIfObjectIsCraftable();
-    if (feu == true)
-      GameManager.craftfeu = true;
   }
 
 

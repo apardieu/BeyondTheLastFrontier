@@ -41,12 +41,6 @@ public class HealthBar : MonoBehaviour
         healthbar = GetComponent<Image>();
     }
 
-    public void setHpMax(int hpSet)
-    {
-        hpmax=hpSet;
-        hp = hpmax;
-    }
-
     // Inflige des dégâts
     public void TakeDamage(int damages)
     {
@@ -57,13 +51,6 @@ public class HealthBar : MonoBehaviour
     public void Heal(int heal)
     {
         hp += heal;
-        UpdateHealth();
-    }
-
-    // Remet au max
-    public void HealMax()
-    {
-        hp = hpmax;
         UpdateHealth();
     }
 
