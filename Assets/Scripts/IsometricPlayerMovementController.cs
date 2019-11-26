@@ -71,7 +71,7 @@ public class IsometricPlayerMovementController : MonoBehaviour
         }
         else
         {
-          GameManager.stateDeplacement = movementSpeed + 0.044f;
+          GameManager.stateDeplacement = movementSpeed + 0.015f;
         }
 
       }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Inventaire : MonoBehaviour
 {
@@ -38,6 +39,28 @@ public class Inventaire : MonoBehaviour
     Map();
   }
 
+  private void Update()
+  {
+    if (Input.GetKey(KeyCode.Escape))
+    {
+      SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+      GameManager.cptJeu++;
+    }
+
+    if (Input.GetKey(KeyCode.Tab)) //cheat code, faudra enlever
+    {
+      GameManager.calendrier = GameManager.calendrier.AddDays(1);
+    }
+
+    if (GameManager.craftfeu == true && GameManager.loop == false)
+    {
+      GameManager.loop = true;
+      SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+      GameManager.cptJeu++;
+    }
+
+  }
+
   void InitBag()
   {
     for (int i = 0; i < 8; i++)
@@ -53,11 +76,9 @@ public class Inventaire : MonoBehaviour
   void Map()
   {
     jacob.transform.localPosition = GameManager.posJacobMap;
-    Debug.Log(jacob.transform.localPosition);
-    Debug.Log(jacob.transform.position);
   }
 
-  void CheckIfObjectIsCraftable()
+  public void CheckIfObjectIsCraftable()
   {
     foreach(Ressource r in GameManager.items)
     {
@@ -71,6 +92,9 @@ public class Inventaire : MonoBehaviour
             {
               if (p.quantite < dic.Value)
                 r.DisableButtonCraft();
+              else
+                r.EnableButtonCraft();
+
             }
           }
         }
@@ -128,6 +152,8 @@ public class Inventaire : MonoBehaviour
   public void ClickAddBag(GameObject bouton)
   {
     boutonAddBag.transform.position = bouton.transform.position + new Vector3(0.7f,0,0);
+    boutonDeleteBag.transform.position += new Vector3(0, 0, -10);
+    boutonCraft.transform.position += new Vector3(0, 0, -10);
     gameObjectActuel = bouton;
   }
 
@@ -136,6 +162,8 @@ public class Inventaire : MonoBehaviour
     if(bouton.GetComponent<Image>().sprite != null)
     {
       boutonDeleteBag.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
+      boutonAddBag.transform.position += new Vector3(0, 0, -10);
+      boutonCraft.transform.position += new Vector3(0, 0, -10);
       gameObjectActuel = bouton;
     }
     
@@ -144,6 +172,8 @@ public class Inventaire : MonoBehaviour
   public void ClickCraft(GameObject bouton)
   {
     boutonCraft.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
+    boutonAddBag.transform.position += new Vector3(0, 0, -10);
+    boutonDeleteBag.transform.position += new Vector3(0, 0, -10);
     gameObjectActuel = bouton;
 
     foreach(Ressource r in GameManager.items)
@@ -331,6 +361,18 @@ public class Inventaire : MonoBehaviour
     CheckIfObjectAddableToBag();
     RearrangeBag();
 
+  }
+
+
+  public void OnClickSauvegarder()
+  {
+    GameManager.Save();
+  }
+
+
+  public void OnClickQuitter()
+  {
+    Application.Quit();
   }
 
 }

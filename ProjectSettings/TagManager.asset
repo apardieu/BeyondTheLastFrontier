@@ -8,6 +8,8 @@ TagManager:
   - Lakes
   - Grid
   - tilemap
+  - Feu
+  - Piege
   layers:
   - Default
   - TransparentFX

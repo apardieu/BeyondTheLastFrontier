@@ -13,6 +13,8 @@ public class clickCollecte : MonoBehaviour
   public int pointsDeVieMax;
   private bool clicking = false;
   public string ressource;
+    public List<string> ressources;
+    public List<int> nbRessources;
     public bool collectable;
 
     public GameObject health;
@@ -102,10 +104,9 @@ public class clickCollecte : MonoBehaviour
           GameManager.setIsCollecting(false);
           foreach (Ressource r in GameManager.items)
           {
-            if (r.name == ressource)
+            if (ressources.Contains(r.name))
             {
-
-              r.quantite++;
+              r.quantite+=nbRessources[ressources.IndexOf(r.name)];
               if (r.quantite < 0)
                 r.quantite = 0;
             }

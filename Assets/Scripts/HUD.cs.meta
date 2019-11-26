@@ -3,7 +3,25 @@ guid: 1384f18306e9a1b49895b3b10967cae3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - soleil: {instanceID: 0}
+  - jaugeVie: {instanceID: 0}
+  - jaugeFaim: {instanceID: 0}
+  - jaugeSoif: {instanceID: 0}
+  - jaugeEnergie: {instanceID: 0}
+  - jaugeTemperature: {instanceID: 0}
+  - textMeteo: {instanceID: 0}
+  - textDate: {instanceID: 0}
+  - textHeure: {instanceID: 0}
+  - boutonManger: {instanceID: 0}
+  - boutonBoire: {instanceID: 0}
+  - boutonUtiliser: {instanceID: 0}
+  - boutonPoser: {instanceID: 0}
+  - prefabFeu: {instanceID: 0}
+  - prefabPiege: {instanceID: 0}
+  - snowWeather: {instanceID: 0}
+  - tempeteWeather1: {instanceID: 0}
+  - tempeteWeather2: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

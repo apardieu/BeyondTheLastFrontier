@@ -27,6 +27,9 @@ public class Boutique : MonoBehaviour
 
   public void OnClickLoadBoutique()
   {
+
+    GameObject jacob = GameObject.Find("jacob_head_marker");
+    jacob.transform.localScale = new Vector3(0, 0, 0);
     cagnotte = 0;
     etat = -1;
     this.transform.localScale = new Vector3(1, 1, 1);
@@ -86,6 +89,8 @@ public class Boutique : MonoBehaviour
     {
       r.UpdateQuantite();
     }
+    GameObject jacob = GameObject.Find("jacob_head_marker");
+    jacob.transform.localScale = new Vector3(47.7f, 47.7f, 47.7f);
   }
 
 
@@ -140,6 +145,7 @@ public class Boutique : MonoBehaviour
     }
     Inventaire go = GameObject.Find("Main Camera").GetComponent<Inventaire>();
     go.CheckIfObjectAddableToBag();
+    go.CheckIfObjectIsCraftable();
     go.RearrangeBag();
 
     OnClickLoadBoutique();
@@ -203,9 +209,6 @@ public class Boutique : MonoBehaviour
     etat = 1;
     panelMenu.transform.localScale = new Vector3(0, 0, 0);
     panelVendre.transform.localScale = new Vector3(1, 1, 1);
-    panelVendre.GetComponent<Image>().sprite = AssetDatabase.LoadAssetAtPath("Assets/Sprites/Inventaire/Boutique/BoutiqueAcheter.png", typeof(Sprite)) as Sprite;
-   // Button tmp = GameObject.Find("ButtonVendreTout").GetComponent<Button>();
-    //tmp.transform.localScale = new Vector3(1, 1, 1);
     Text tmp2 = GameObject.Find("TextVendreCagnote").GetComponent<Text>();
     tmp2.text = "Argent dans le coffre fort: $" + GameManager.argent;
 
@@ -239,9 +242,6 @@ public class Boutique : MonoBehaviour
     etat = 0;
     panelMenu.transform.localScale = new Vector3(0, 0, 0);
     panelVendre.transform.localScale = new Vector3(1, 1, 1);
-    panelVendre.GetComponent<Image>().sprite = AssetDatabase.LoadAssetAtPath("Assets/Sprites/Inventaire/Boutique/BoutiqueAcheter.png", typeof(Sprite)) as Sprite;
-   // Button tmp = GameObject.Find("ButtonVendreTout").GetComponent<Button>();
-    //tmp.transform.localScale = new Vector3(0, 0, 0);
     Text tmp2 = GameObject.Find("TextVendreCagnote").GetComponent<Text>();
 
     tmp2.text = "Argent dans le coffre fort: $" + GameManager.argent;
@@ -312,13 +312,21 @@ public class Boutique : MonoBehaviour
     }
 
     Button tmp4 = GameObject.Find("ButtonVendrePour").GetComponent<Button>();
-    if ((cagnotte > GameManager.argent) || (cagnotte == 0))
+    if(etat == 0)
     {
-      tmp4.interactable = false;
+      if ((cagnotte > GameManager.argent) || (cagnotte == 0))
+      {
+        tmp4.interactable = false;
+      }
+      else
+        tmp4.interactable = true;
     }
     else
     {
-      tmp4.interactable = true;
+      if(cagnotte == 0)
+        tmp4.interactable = false;
+      else
+        tmp4.interactable = true;
     }
   }
 
@@ -327,6 +335,11 @@ public class Boutique : MonoBehaviour
     cagnotte = 0;
     GameManager.commandeAchat.Clear();
     GameManager.commandeVente.Clear();
+    OnClickLoadBoutique();
+  }
+
+  public void OnClickReturnToBoutiqueRecup()
+  {
     OnClickLoadBoutique();
   }
 
@@ -377,7 +390,6 @@ public class Boutique : MonoBehaviour
             Text tmp4 = GameObject.Find("TextPrix" + r.name).GetComponent<Text>();
             cagnotte += float.Parse(tmp4.text.Substring(2));
             GameManager.commandeVente.Add(r);
-            Debug.Log(r.quantite);
           }
         }
         else
@@ -469,6 +481,7 @@ public class Boutique : MonoBehaviour
     }
     Inventaire go = GameObject.Find("Main Camera").GetComponent<Inventaire>();
     go.CheckIfObjectAddableToBag();
+    go.CheckIfObjectIsCraftable();
     go.RearrangeBag();
 
     OnClickLoadBoutique();

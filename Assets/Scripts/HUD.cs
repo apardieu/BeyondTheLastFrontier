@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.Tilemaps;
 using UnityEditor;
 using UB.Simple2dWeatherEffects.Standard;
+using UnityEngine.SceneManagement;
 
 public class HUD : MonoBehaviour
 {
@@ -26,10 +27,11 @@ public class HUD : MonoBehaviour
   public GameObject boutonPoser;
 
   public GameObject prefabFeu;
+    public GameObject prefabPiege;
 
 
 
-  public static System.DateTime calendrier;
+    public static System.DateTime calendrier;
   private float tmpSecondes = -1;
   private float tmpHeures = -1;
   private bool debut = true;
@@ -117,7 +119,6 @@ public class HUD : MonoBehaviour
     jaugeTemperature.GetComponent<Slider>().value = GameManager.valeurTemperature;
 
     calendrier = GameManager.calendrier;
-    Debug.Log(calendrier);
     startTime = GameManager.startTime;
     textMeteo.text = GameManager.meteo;
     meteoActuelle = GameManager.meteo;
@@ -147,6 +148,15 @@ public class HUD : MonoBehaviour
       }
     }
 
+    for(int i = 0; i < GameManager.posFeu.Count; i++)
+    {
+      Instantiate(prefabFeu, GameManager.posFeu[i], Quaternion.identity);
+    }
+    for (int i = 0; i < GameManager.posPiege.Count; i++)
+    {
+      Instantiate(prefabPiege, GameManager.posPiege[i], Quaternion.identity);
+    }
+
 
     for (int i = 0; i < 8; i++)
     {
@@ -173,10 +183,23 @@ public class HUD : MonoBehaviour
       GameManager.loop = false;
       CraftFeu();
     }
+
+    UpdateQuantiteBag();
   }
 
   void Update()
   {
+    if (Input.GetKey(KeyCode.Escape))
+    {
+      if (GameManager.inCabane == false)
+      {
+        GameManager.SaveValeursJeu();
+        SceneManager.LoadScene("Inventaire", LoadSceneMode.Single);
+        GameManager.cptInventaire++;
+      }
+    }
+
+
     System.TimeSpan ts = System.DateTime.UtcNow - startTime;
 
     //Jacob perd 4.166 sur jauge soif par heure (jauge vide au bout de 24h)
@@ -218,19 +241,18 @@ public class HUD : MonoBehaviour
       if(GameManager.inCabane && GameManager.stateCabane == 1)
       {
         jaugeEnergie.GetComponent<Slider>().value += 0.4f;
-      }
-      else
-        jaugeEnergie.GetComponent<Slider>().value -= coefEnergie; //a modifier plus tard
-
-
-
-      if (GameManager.inCabane && GameManager.stateCabane == 1)
-      {
         jaugeTemperature.GetComponent<Slider>().value += 1;
       }
+      else if(GameManager.inCabane && GameManager.stateCabane == 0)
+      {
+        jaugeTemperature.GetComponent<Slider>().value += 1;
+        jaugeEnergie.GetComponent<Slider>().value -= coefEnergie;
+      }
       else
-        jaugeTemperature.GetComponent<Slider>().value -= GameManager.coefWeather; //a modifier plus tard
-
+      {
+        jaugeTemperature.GetComponent<Slider>().value -= GameManager.coefWeather;
+        jaugeEnergie.GetComponent<Slider>().value -= coefEnergie;
+      }
 
       jaugeVie.GetComponent<Slider>().value = CalculerJaugeVie();
 
@@ -320,10 +342,14 @@ public class HUD : MonoBehaviour
         {
           tabBagPos[i].GetComponentInChildren<Button>().interactable = false;
         }
+        else
+        {
+          tabBagPos[i].GetComponentInChildren<Button>().interactable = true;
+        }
       }
       else
       {
-        tabBagPos[i].GetComponentInChildren<Button>().interactable = true;
+        tabBagPos[i].GetComponentInChildren<Button>().interactable = false;
       }
     }
   }
@@ -334,18 +360,30 @@ public class HUD : MonoBehaviour
     if ((bouton.GetComponent<Image>().sprite.name.Contains("Viande")) || (bouton.GetComponent<Image>().sprite.name.Contains("Poisson")))
     {
       boutonManger.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
+      boutonPoser.transform.position += new Vector3(0, 0, -50);
+      boutonBoire.transform.position += new Vector3(0, 0, -50);
+      boutonUtiliser.transform.position += new Vector3(0, 0, -50);
     }
     else if (bouton.GetComponent<Image>().sprite.name.Contains("Eau"))
     {
       boutonBoire.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
+      boutonPoser.transform.position += new Vector3(0, 0, -50);
+      boutonManger.transform.position += new Vector3(0, 0, -50);
+      boutonUtiliser.transform.position += new Vector3(0, 0, -50);
     }
     else if (bouton.GetComponent<Image>().sprite.name.Contains("Piege"))
     {
       boutonPoser.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
+      boutonManger.transform.position += new Vector3(0, 0, -50);
+      boutonBoire.transform.position += new Vector3(0, 0, -50);
+      boutonUtiliser.transform.position += new Vector3(0, 0, -50);
     }
     else
     {
       boutonUtiliser.transform.position = bouton.transform.position + new Vector3(0.7f, 0, 0);
+      boutonPoser.transform.position += new Vector3(0, 0, -50);
+      boutonBoire.transform.position += new Vector3(0, 0, -50);
+      boutonManger.transform.position += new Vector3(0, 0, -50);
     }
 
     gameObjectActuel = bouton;
@@ -369,7 +407,8 @@ public class HUD : MonoBehaviour
 
     }
     UpdateQuantiteBag();
-
+        GameObject jacob = GameObject.Find("Jacob");
+        Instantiate(prefabPiege, jacob.transform.position, Quaternion.identity);
   }
 
   public void OnClickUtiliser()

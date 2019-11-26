@@ -52,6 +52,16 @@ public class Ressource
     }
   }
 
+  public void EnableButtonCraft()
+  {
+    if (buttonCraft != null)
+    {
+
+      buttonCraft.interactable = true;
+
+    }
+  }
+
   public void EnableButtonCase()
   {
     if (this.name != "Feu")

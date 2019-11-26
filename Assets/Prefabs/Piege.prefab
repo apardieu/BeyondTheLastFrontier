@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 881726943035457856}
   m_Layer: 0
   m_Name: Piege
-  m_TagString: Untagged
+  m_TagString: Piege
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,6 +214,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsDeVieMax: 7
   ressource: Viande
+  ressources:
+  - Viande
+  - Peau
+  nbRessources: 0300000002000000
   collectable: 0
   health: {fileID: 4586143977114095861, guid: a3ec52e2f05e1f341bf5e0e09efd8e03, type: 3}
 --- !u!82 &5910402385802265705

@@ -34,12 +34,14 @@ public static class GameManager
   public static int cptJeu = -1;
   public static float stateDeplacement = 0;
   public static bool isCollecting;
-    public static float coefWeather;
+  public static float coefWeather;
 
-    public static GameObject objs;
+  public static GameObject objs;
   private static string savePath;
 
   public static List<Vector3> posTree = new List<Vector3>();
+  public static List<Vector3> posFeu = new List<Vector3>();
+  public static List<Vector3> posPiege = new List<Vector3>();
 
   public static bool trigger = false;
   public static bool saveMode = false;
@@ -54,61 +56,30 @@ public static class GameManager
   public static bool craftfeu = false;
   public static bool loop = false;
   public static bool inCabane = false;
-  public static int stateCabane = -1;
+  public static int stateCabane = -1; //-1 pour rien, 0 pour rechauffer, 1 pour dormir
 
-
-  static GameManager()
+  public static void InitGameManager()
   {
-    EditorApplication.update += Update;
+    posTree.Clear();
+    posFeu.Clear();
+    posPiege.Clear();
     InitRessources();
 
     objs = GameObject.FindGameObjectWithTag("Grid");
     savePath = Path.Combine(Application.persistentDataPath, "saveFile");
-    if(saveMode)
+    if (saveMode)
       Load();
     trigger = true;
   }
 
-  static void Update()
-  {
-    if (Input.GetKey(KeyCode.Escape))
-    {
-      Scene scene = SceneManager.GetActiveScene();
-      if (scene.name == "MainScene")
-      {
-        SaveValeursJeu();
-        Save();
-        SceneManager.LoadScene("Inventaire", LoadSceneMode.Single);
-        cptInventaire++;
-      }
-      else if (scene.name == "Inventaire")
-      {
-        Save();
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
-        cptJeu++;
-      }
-    }
-
-    if (Input.GetKey(KeyCode.Tab)) //cheat code, faudra enlever
-    {
-      calendrier = calendrier.AddDays(1);
-      Debug.Log(calendrier);
-    }
-
-    if(craftfeu == true && loop == false)
-    {
-      loop = true;
-      Save();
-      SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
-      cptJeu++;
-    }
-  }
+  
 
   static void Load()
   {
-    using (
-       var reader = new BinaryReader(File.Open(savePath, FileMode.Open))
-     )
+    FileStream fs = new FileStream(savePath, FileMode.Open);
+    BinaryReader reader = new BinaryReader(fs);
+
+    try
     {
       posJacob.x = reader.ReadSingle();
       posJacob.y = reader.ReadSingle();
@@ -137,8 +108,8 @@ public static class GameManager
       {
         items[i].quantite = reader.ReadInt32();
       }
-      int count = reader.ReadInt32();
-      for (int i = 0; i < count; i++)
+      int countTree = reader.ReadInt32();
+      for (int i = 0; i < countTree; i++)
       {
         Vector3 vec;
         vec.x = reader.ReadSingle();
@@ -146,9 +117,37 @@ public static class GameManager
         vec.z = reader.ReadSingle();
         posTree.Add(vec);
       }
+      int countFeu = reader.ReadInt32();
+      for (int i = 0; i < countFeu; i++)
+      {
+        Vector3 vec;
+        vec.x = reader.ReadSingle();
+        vec.y = reader.ReadSingle();
+        vec.z = reader.ReadSingle();
+        posFeu.Add(vec);
+      }
+      int countPiege = reader.ReadInt32();
+      for (int i = 0; i < countPiege; i++)
+      {
+        Vector3 vec;
+        vec.x = reader.ReadSingle();
+        vec.y = reader.ReadSingle();
+        vec.z = reader.ReadSingle();
+        posPiege.Add(vec);
+      }
       argent = reader.ReadSingle();
-      
     }
+    catch
+    {
+      Debug.Log("End of stream exception load");
+    }
+
+
+    fs.Flush();
+    reader.Close();
+    fs.Close();
+
+    
   }
 
     public static void setIsCollecting(bool set)
@@ -156,11 +155,12 @@ public static class GameManager
         isCollecting = set;
     }
 
-  static void Save()
+  public static void Save()
   {
-    using (
-       var writer = new BinaryWriter(File.Open(savePath, FileMode.Create))
-     )
+    FileStream fs = new FileStream(savePath, FileMode.OpenOrCreate);
+    BinaryWriter writer = new BinaryWriter(fs);
+
+    try
     {
       writer.Write(posJacob.x);
       writer.Write(posJacob.y);
@@ -194,22 +194,64 @@ public static class GameManager
         writer.Write(vec.y);
         writer.Write(vec.z);
       }
+      writer.Write(posFeu.Count);
+      foreach (Vector3 vec in posFeu)
+      {
+        writer.Write(vec.x);
+        writer.Write(vec.y);
+        writer.Write(vec.z);
+      }
+      writer.Write(posPiege.Count);
+      foreach (Vector3 vec in posPiege)
+      {
+        writer.Write(vec.x);
+        writer.Write(vec.y);
+        writer.Write(vec.z);
+      }
       writer.Write(argent);
     }
+    catch (EndOfStreamException e)
+    {
+      Debug.Log("end of stream exception");
+    }
+    fs.Flush();
+    writer.Close();
+    fs.Close();
 
+    
   }
 
-  static void SaveValeursJeu()
+  public static void SaveValeursJeu()
   {
     GameObject tmp = GameObject.Find("Canvas");
     GameObject jacob = GameObject.Find("Jacob");
     GameObject tm2 = GameObject.Find("Snow - Harvestable");
+    GameObject[] feu = GameObject.FindGameObjectsWithTag("Feu");
+    GameObject[] piege = GameObject.FindGameObjectsWithTag("Piege");
 
     posTree.Clear();
+    posFeu.Clear();
+    posPiege.Clear();
     
     for (int i = 0; i < tm2.transform.childCount; i++)
     {
       posTree.Add(tm2.transform.GetChild(i).transform.position);
+    }
+
+    if(feu != null)
+    {
+      for (int i = 0; i < feu.Length; i++)
+      {
+        posFeu.Add(feu[i].transform.position);
+      }
+    }
+
+    if (piege != null)
+    {
+      for (int i = 0; i < piege.Length; i++)
+      {
+        posPiege.Add(piege[i].transform.position);
+      }
     }
 
     posJacob = jacob.transform.position;
@@ -228,7 +270,6 @@ public static class GameManager
     GameObject tmp2 = GameObject.Find("Snow - Ground");
     Tilemap tm = tmp2.GetComponent<Tilemap>();
     posJacobMap = tm.WorldToCell(posJacob);
-    Debug.Log(posJacobMap);
 
   }
 

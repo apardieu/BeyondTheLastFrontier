@@ -98,6 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsDeVieMax: 5
   ressource: Bois
+  ressources:
+  - Bois
+  nbRessources: 03000000
   collectable: 1
   health: {fileID: 4586143977114095861, guid: a3ec52e2f05e1f341bf5e0e09efd8e03, type: 3}
 --- !u!60 &2949007571033726431

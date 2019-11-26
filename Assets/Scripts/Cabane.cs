@@ -31,20 +31,22 @@ public class Cabane : MonoBehaviour
     canvas.transform.localScale = new Vector3(1, 1, 1);
     panelCabaneGris.transform.localScale = new Vector3(1, 1, 1);
     panelCabaneMenu.transform.localScale = new Vector3(1, 1, 1);
+    GameManager.stateCabane = -1;
   }
 
   public void OnClickQuitterCabane()
   {
     canvas.transform.localScale = new Vector3(0, 0, 0);
-    panelCabaneGris.transform.localScale = new Vector3(0, 0, 0);
     panelCabaneMenu.transform.localScale = new Vector3(0, 0, 0);
     panelCabaneAction.transform.localScale = new Vector3(0, 0, 0);
+    panelCabaneGris.transform.localScale = new Vector3(0, 0, 0);
+    GameManager.stateCabane = -1;
     GameManager.inCabane = false;
   }
 
   public void OnClickRechauffer()
   {
-    GameManager.inCabane = true;
+    //GameManager.inCabane = true;
     panelCabaneMenu.transform.localScale = new Vector3(0, 0, 0);
     panelCabaneAction.transform.localScale = new Vector3(1, 1, 1);
     Text tmp = GameObject.Find("TextCabaneAction").GetComponent<Text>();
@@ -55,7 +57,7 @@ public class Cabane : MonoBehaviour
 
   public void OnClickDormir()
   {
-    GameManager.inCabane = true;
+    //GameManager.inCabane = true;
     panelCabaneMenu.transform.localScale = new Vector3(0, 0, 0);
     panelCabaneAction.transform.localScale = new Vector3(1, 1, 1);
     Text tmp = GameObject.Find("TextCabaneAction").GetComponent<Text>();
@@ -67,7 +69,7 @@ public class Cabane : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if ((Input.GetKey(KeyCode.Space) && (GameManager.stateCabane != -1) ))
+    if ((Input.GetKey(KeyCode.Space) && (GameManager.stateCabane != -1) && (GameManager.inCabane == true)))
     {
       canvas.transform.localScale = new Vector3(0, 0, 0);
       panelCabaneGris.transform.localScale = new Vector3(0, 0, 0);
